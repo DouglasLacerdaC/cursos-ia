@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  template-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run preview
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    volumes:
+      - /usr/app
+      - /usr/app/node_modules
