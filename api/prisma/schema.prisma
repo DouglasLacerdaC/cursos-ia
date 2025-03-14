@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id         Int     @id @default(autoincrement())
+  name       String
+  email      String  @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Reviews       Reviews[]
+  Purchases     Purchases[]
+  EnrolledUsers EnrolledUsers[]
+}
+
+model Courses {
+  id            Int     @id @default(autoincrement())
+  name          String
+  quantityHours String
+  certificate   String
+  description   String
+  price         Decimal
+  bannerUrl     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Reviews       Reviews[]
+  Purchases     Purchases[]
+  EnrolledUsers EnrolledUsers[]
+}
+
+model Reviews {
+  id     Int    @id @default(autoincrement())
+  review String
+  stars  Int
+
+  Users    Users   @relation(fields: [userId], references: [id])
+  userId   Int
+  Courses  Courses @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Purchases {
+  id Int @id @default(autoincrement())
+
+  Users    Users   @relation(fields: [userId], references: [id])
+  userId   Int
+  Courses  Courses @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EnrolledUsers {
+  id Int @id @default(autoincrement())
+
+  Users    Users   @relation(fields: [userId], references: [id])
+  userId   Int
+  Courses  Courses @relation(fields: [courseId], references: [id])
+  courseId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
