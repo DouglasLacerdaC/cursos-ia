@@ -10,7 +10,7 @@ const endpointsFiles = ['../../routes/api'];
 
 const doc = {
   info: {
-    title: 'JUAD API Documentation',
+    title: 'Feedback IA',
     version: '1.0.0',
     description: '',
     contact: { name: 'Armando Pereira' },
@@ -30,4 +30,6 @@ const doc = {
   },
 };
 
-swaggerAutogen({ language: 'pt-BR' })(outputFile, endpointsFiles, doc).then(() => exit());
+swaggerAutogen({ language: 'pt-BR' })(outputFile, endpointsFiles, doc).then(
+  () => exit(),
+);

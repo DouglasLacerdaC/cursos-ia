@@ -1,4 +1,13 @@
-import { Clock, Medal, ShoppingCart, Sparkles, Star } from 'lucide-react'
+import {
+  Clock,
+  Medal,
+  MessageCircleOff,
+  ShoppingCart,
+  Sparkles,
+  Star,
+} from 'lucide-react'
+import { format, parseISO } from 'date-fns'
+import { pt } from 'date-fns/locale'
 
 import { NavigateBreadcrumb } from '@/view/components/developer/navigate-breadcrumb'
 import {
@@ -9,18 +18,10 @@ import {
 } from '@/view/components/ui/card'
 import { Separator } from '@/view/components/ui/separator'
 import { Button } from '@/view/components/ui/button'
+import { useController } from './use-controller'
 
 export function ViewCoursePage() {
-  const breadcrumbLinks = [
-    {
-      link: '/courses',
-      name: 'Cursos',
-    },
-    {
-      link: '',
-      name: 'Curso de tinta',
-    },
-  ]
+  const { breadcrumbLinks, course, priceFormat, averageStars } = useController()
 
   return (
     <div className="py-16">
@@ -29,110 +30,58 @@ export function ViewCoursePage() {
           <NavigateBreadcrumb links={breadcrumbLinks} />
 
           <section className="grid grid-cols-6 items-start gap-6">
-            <div className="col-span-4 space-y-10">
-              <article className="px-14 pt-24 py-6 rounded-lg bg-[url(https://img.freepik.com/vetores-gratis/fundo-de-gradiente-de-linhas-azuis-dinamicas_23-2148995756.jpg?t=st=1741912139~exp=1741915739~hmac=605557bbee48b97ab8735a8164bb5e01a17a12d0fb221d1adec21051a97600e4&w=996)]">
-                <h1 className="text-4xl font-semibold text-white">
-                  Curso de tinta
-                </h1>
-              </article>
-
-              <div className="space-y-3">
-                <h4 className="font-semibold text-xl">Descrição</h4>
-
-                <div className="space-y-6 leading-8">
-                  <p>
-                    Você já imaginou transformar paredes comuns em verdadeiras
-                    obras de arte? No Curso Profissionalizante de Pintura e
-                    Técnicas de Acabamento, você aprenderá desde os fundamentos
-                    da pintura até as técnicas mais avançadas para criar efeitos
-                    sofisticados em diferentes superfícies.
-                  </p>
-
-                  <p>
-                    Nosso curso é voltado para iniciantes e profissionais que
-                    desejam aprimorar suas habilidades, oferecendo uma abordagem
-                    completa sobre materiais, ferramentas e métodos de
-                    aplicação. Ao longo das aulas, você aprenderá a escolher
-                    tintas e texturas adequadas para cada ambiente, garantindo
-                    um acabamento impecável.
-                  </p>
-
-                  <p>
-                    Com uma metodologia prática e dinâmica, o curso aborda desde
-                    a preparação de superfícies, como lixamento e aplicação de
-                    seladores, até técnicas modernas como pintura decorativa,
-                    estêncil, marmorização e grafiato. Além disso, você terá
-                    acesso a conteúdos exclusivos sobre combinação de cores,
-                    psicologia das cores e tendências do mercado.
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <Card>
-                  <CardHeader>
-                    <h5 className="text-xl text-primary font-medium">
-                      O que você aprenderá
-                    </h5>
-                  </CardHeader>
-
-                  <Separator />
-
-                  <CardContent className="pt-6">
-                    <ul className="grid grid-cols-2 gap-4 list-disc ml-5">
-                      <li>
-                        Aprenda Diversas Téncnicas de Detecção de Anomalias
-                      </li>
-                      <li>Implemente Algoritmos de Busca e Otimização</li>
-                      <li>
-                        Classifique Documentos com Processamento de Linguagem
-                        Natural
-                      </li>
-                      <li>
-                        Construa Sistemas Baseados em Regras com Lógica Difusa
-                      </li>
-                      <li>
-                        Resolva Problemas de Otimização com Algoritmos Genéticos
-                      </li>
-                      <li>
-                        Reconheça Caracteres com Redes Neurais Artificias e Deep
-                        Learning
-                      </li>
-                    </ul>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
             <Card className="border-l col-span-2">
-              <CardHeader className="flex-row gap-4">
-                <h5 className="text-4xl font-semibold text-primary">5</h5>
+              <CardHeader className="gap-6">
+                <img
+                  src={course?.bannerUrl}
+                  className="w-full h-full max-h-52 object-cover rounded-lg"
+                  alt=""
+                />
 
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: 5 }).map(() => (
-                      <Star size={16} className="fill-primary stroke-primary" />
-                    ))}
+                <div className="flex flex-row gap-4">
+                  <h5 className="text-4xl font-semibold text-primary">
+                    {averageStars}
+                  </h5>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star
+                          size={16}
+                          className={
+                            index < averageStars
+                              ? `fill-primary stroke-primary`
+                              : `fill-zinc-400 stroke-zinc-400`
+                          }
+                        />
+                      ))}
+                    </div>
+
+                    <p className="text-sm text-zinc-500">
+                      {course?.reviews.length} Avaliações
+                    </p>
                   </div>
-
-                  <p className="text-sm text-zinc-500">20 Avaliações</p>
                 </div>
               </CardHeader>
 
               <Separator />
 
               <CardContent className="pt-6 space-y-4">
-                <h4 className="text-4xl font-medium">R$ 50.00</h4>
+                <h4 className="text-4xl font-medium">{priceFormat}</h4>
 
                 <ul className="space-y-1">
                   <li className="flex items-center gap-1">
                     <Clock size={16} className="stroke-primary" />{' '}
-                    <span className="text-zinc-600">8 horas de conteúdo</span>
+                    <span className="text-zinc-600">
+                      {course?.quantityHours} horas de conteúdo
+                    </span>
                   </li>
-                  <li className="flex items-center gap-1">
-                    <Medal size={16} className="stroke-primary" />{' '}
-                    <span className="text-zinc-600">Certificado</span>
-                  </li>
+                  {course?.certificate && (
+                    <li className="flex items-center gap-1">
+                      <Medal size={16} className="stroke-primary" />{' '}
+                      <span className="text-zinc-600">Certificado</span>
+                    </li>
+                  )}
                 </ul>
               </CardContent>
 
@@ -146,6 +95,22 @@ export function ViewCoursePage() {
                 </Button>
               </CardFooter>
             </Card>
+
+            <div className="col-span-4 space-y-10">
+              <article className="px-14 pt-24 py-6 rounded-lg bg-[url(https://img.freepik.com/vetores-gratis/fundo-de-gradiente-de-linhas-azuis-dinamicas_23-2148995756.jpg?t=st=1741912139~exp=1741915739~hmac=605557bbee48b97ab8735a8164bb5e01a17a12d0fb221d1adec21051a97600e4&w=996)]">
+                <h1 className="text-4xl font-semibold text-white">
+                  {course?.name}
+                </h1>
+              </article>
+
+              <div className="space-y-3">
+                <h4 className="font-semibold text-xl">Descrição</h4>
+
+                <div className="space-y-6 leading-8">
+                  <p>{course?.description}</p>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
 
@@ -156,16 +121,27 @@ export function ViewCoursePage() {
             <h5 className="text-4xl font-semibold">Opiniões do curso</h5>
 
             <div className="flex gap-6">
-              <h5 className="text-5xl font-semibold text-primary">5</h5>
+              <h5 className="text-5xl font-semibold text-primary">
+                {averageStars}
+              </h5>
 
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  {Array.from({ length: 5 }).map(() => (
-                    <Star size={24} className="fill-primary stroke-primary" />
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <Star
+                      size={24}
+                      className={
+                        index < averageStars
+                          ? `fill-primary stroke-primary`
+                          : `fill-zinc-400 stroke-zinc-400`
+                      }
+                    />
                   ))}
                 </div>
 
-                <p className="text-sm text-zinc-500">20 Avaliações</p>
+                <p className="text-sm text-zinc-500">
+                  {course?.reviews.length} Avaliações
+                </p>
               </div>
             </div>
           </div>
@@ -201,45 +177,56 @@ export function ViewCoursePage() {
           <div className="space-y-4">
             <h5 className="text-lg font-medium">Todas as opiniões</h5>
 
+            {!course?.reviews.length && (
+              <Card>
+                <CardContent className="text-center p-4 flex flex-col items-center gap-4">
+                  <div className="p-1 border rounded-lg w-fit">
+                    <MessageCircleOff size={20} className="stroke-primary" />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm font-semibold">
+                      Nenhuma avaliação encontrada
+                    </h5>
+                    <p className="text-xs text-zinc-500">
+                      Seja o primeiro a adicionar um novo comentário!
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             <ul className="space-y-6">
-              <li className="space-y-2">
-                <p className="text-sm">
-                  Simplesmente sensacional!!! meu primeiro iphone, decidi sair
-                  do android e estou amando!!! celular original, funcionando
-                  perfeitamente! sem contar a cor que é linda!!! e valor bem em
-                  conta por ser o iphone 15! custo benefício ótimo e chega no
-                  dia seguinte! comprem sem medo.
-                </p>
+              {course?.reviews.map((review) => (
+                <li className="space-y-2">
+                  <p className="text-sm">{review.review}</p>
 
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: 5 }).map(() => (
-                      <Star size={16} className="fill-primary stroke-primary" />
-                    ))}
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Star
+                          size={16}
+                          className={
+                            index < review.stars
+                              ? `fill-primary stroke-primary`
+                              : `fill-zinc-400 stroke-zinc-400`
+                          }
+                        />
+                      ))}
+                    </div>
+
+                    <span className="text-sm text-zinc-500">
+                      {format(
+                        parseISO(review.createdAt),
+                        "dd 'de' MMMM 'de' yyyy",
+                        {
+                          locale: pt,
+                        },
+                      )}
+                    </span>
                   </div>
-
-                  <span className="text-sm text-zinc-500">12 de Março</span>
-                </div>
-              </li>
-              <li className="space-y-2">
-                <p className="text-sm">
-                  Simplesmente sensacional!!! meu primeiro iphone, decidi sair
-                  do android e estou amando!!! celular original, funcionando
-                  perfeitamente! sem contar a cor que é linda!!! e valor bem em
-                  conta por ser o iphone 15! custo benefício ótimo e chega no
-                  dia seguinte! comprem sem medo.
-                </p>
-
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: 5 }).map(() => (
-                      <Star size={16} className="fill-primary stroke-primary" />
-                    ))}
-                  </div>
-
-                  <span className="text-sm text-zinc-500">12 de Março</span>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </section>

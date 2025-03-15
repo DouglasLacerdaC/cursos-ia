@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "JUAD API Documentation",
+    "title": "Feedback IA",
     "version": "1.0.0",
     "description": "",
     "contact": {
@@ -28,40 +28,6 @@
     "application/json"
   ],
   "paths": {
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Autenticação"
-        ],
-        "summary": "Fazer login",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
-          }
-        }
-      }
-    },
     "/users/me": {
       "get": {
         "tags": [
@@ -139,6 +105,106 @@
           "Usuários"
         ],
         "summary": "Deletar usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/courses/": {
+      "get": {
+        "tags": [
+          "Cursos"
+        ],
+        "summary": "Lista de cursos",
+        "description": "",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "tags": [
+          "Cursos"
+        ],
+        "summary": "Obter um curso",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/reviews/": {
+      "get": {
+        "tags": [
+          "Avaliações"
+        ],
+        "summary": "Lista de avaliações",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Avaliações"
+        ],
+        "summary": "Criar avaliação",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/reviews/{id}": {
+      "get": {
+        "tags": [
+          "Avaliações"
+        ],
+        "summary": "Lista de avaliações",
         "description": "",
         "parameters": [
           {

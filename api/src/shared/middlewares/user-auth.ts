@@ -9,22 +9,26 @@ import { MapErrors } from '../../config/errors/map-errors';
 import { UserAuthRequest } from '../../http/modules/users/model';
 import { UsersRepository } from '../../http/modules/users/repository';
 
-export const UserAuth = MapErrors(async (request: UserAuthRequest, _: Response, next: NextFunction) => {
-  // #swagger.auto = false
+export const UserAuth = MapErrors(
+  async (request: UserAuthRequest, _: Response, next: NextFunction) => {
+    // #swagger.auto = false
 
-  const { authorization } = request.headers;
+    const { authorization } = request.headers;
 
-  if (!authorization) throw new ApiError(400, 'Token não fornecido');
+    if (!authorization) throw new ApiError(400, 'Token não fornecido');
 
-  const token = authorization.replace('Bearer ', '');
+    const token = authorization.replace('Bearer ', '');
 
-  const decoded = jwt.verify(token, JWT_SECRET,) as JwtPayload & { userId: number };
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload & {
+      userId: number;
+    };
 
-  if (!decoded || !decoded.userId) throw new ApiError(401, 'Token inválido');
+    if (!decoded || !decoded.userId) throw new ApiError(401, 'Token inválido');
 
-  const user = await UsersRepository.getById(decoded.userId);
+    const user = await UsersRepository.getById(decoded.userId);
 
-  request.user = user;
+    request.user = user;
 
-  next();
-});
+    next();
+  },
+);

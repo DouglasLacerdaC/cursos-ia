@@ -34,7 +34,29 @@ async function main() {
     ],
   });
 
+  const users = await Prisma.users.createMany({
+    data: [
+      {
+        email: 'aa@',
+        name: 'Douglas',
+      },
+    ],
+  });
+
+  const reviews = await Prisma.reviews.createMany({
+    data: [
+      {
+        courseId: 11,
+        review: 'Texto complementar',
+        stars: 5,
+        userId: 4,
+      },
+    ],
+  });
+
   console.info(course);
+  console.info(reviews);
+  console.info(users);
 }
 
 main()

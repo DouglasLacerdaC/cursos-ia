@@ -6,7 +6,12 @@ import { ApiError, NotFoundError } from './api-error';
 
 export class ErrorHandler {
   static handle = () => {
-    return (error: ApiError, _request: Request, response: Response, _next: NextFunction,) => {
+    return (
+      error: ApiError,
+      _request: Request,
+      response: Response,
+      _next: NextFunction,
+    ) => {
       const status = error.status || 500;
 
       if (error.field) {
