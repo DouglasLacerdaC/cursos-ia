@@ -6,7 +6,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-  	extend: {
+    extend: {
+      fontFamily: {
+        "inter": '"Inter", sans-serif',
+        "onest": '"Onest", sans-serif'
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

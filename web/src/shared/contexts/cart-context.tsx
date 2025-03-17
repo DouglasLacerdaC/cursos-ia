@@ -84,6 +84,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const newParams = new URLSearchParams(searchParams)
       newParams.delete('payment')
       setSearchParams(newParams, { replace: true })
+    } else if (paymentStatus == 'cancel') {
+      toast.error('O pagamento não foi finalizado!')
+
+      const newParams = new URLSearchParams(searchParams)
+      newParams.delete('payment')
+      setSearchParams(newParams, { replace: true })
     }
   }, [])
 

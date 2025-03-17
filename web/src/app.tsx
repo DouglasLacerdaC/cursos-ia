@@ -8,6 +8,11 @@ import { queryClient } from '@/shared/config/query-client'
 import { CartProvider } from './shared/contexts/cart-context'
 import { AuthContextProvider } from './shared/contexts/auth-context'
 
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+AOS.init()
+
 export function App() {
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>

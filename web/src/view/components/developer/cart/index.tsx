@@ -32,8 +32,8 @@ export function Cart() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent className="flex flex-col gap-6 min-w-[600px]">
-        <SheetHeader className="space-y-1">
+      <SheetContent className="flex flex-col gap-6 w-full max-w-xs sm:max-w-2xl">
+        <SheetHeader className="text-start space-y-1">
           <SheetTitle>Carrinho ({itemsCart.length})</SheetTitle>
           <SheetDescription>
             Veja todos os itens que você adicionou no carrinho
@@ -47,21 +47,21 @@ export function Cart() {
             itemsCart.map((course) => (
               <Card key={course.id}>
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-6">
+                  <div className="flex flex-col md:flex-row md:items-center gap-6">
                     <img
                       src={course.bannerUrl}
-                      className="w-28 rounded-lg object-cover"
+                      className="w-ful md:w-28 rounded-lg object-cover"
                       alt=""
                     />
 
-                    <div className="flex-1 flex items-start justify-between">
+                    <div className="flex-1 flex flex-col-reverse gap-3 md:flex-row items-start justify-between">
                       <div className="space-y-3">
                         <div className="-space-y-1">
                           <span className="font-sm text-zinc-500">
                             Novidade ✨
                           </span>
 
-                          <h4 className="font-semibold text-lg">
+                          <h4 className="font-semibold text-lg font-onest">
                             {course.name}
                           </h4>
                         </div>
@@ -105,7 +105,7 @@ export function Cart() {
 
         <SheetFooter>
           {itemsCart.length > 0 && (
-            <Button className="w-full" asChild>
+            <Button className="w-full justify-between" asChild>
               <Link to="/confirm-purchase" onClick={() => setIsOpen(false)}>
                 Confirmar compra <CheckCheck className="ml-2" size={16} />
               </Link>

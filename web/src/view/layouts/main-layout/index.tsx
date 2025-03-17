@@ -3,10 +3,12 @@ import { Header } from './components/header'
 
 export function MainLayout() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen bg-zinc-100 font-inter">
       <Header />
 
-      <Outlet />
+      <div className="flex-1">
+        <Outlet />
+      </div>
     </div>
   )
 }

@@ -13,7 +13,7 @@ const doc = {
     title: 'Feedback IA',
     version: '1.0.0',
     description: '',
-    contact: { name: 'Armando Pereira' },
+    contact: { name: '' },
   },
   host: `${SERVER_DOMAIN}${SERVER_SCHEME == 'https' ? '' : `:${SERVER_PORT}`}`,
   basePath: '/',

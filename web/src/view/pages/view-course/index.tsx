@@ -43,8 +43,8 @@ export function ViewCoursePage() {
         <div className="space-y-8">
           <NavigateBreadcrumb links={breadcrumbLinks} />
 
-          <section className="grid grid-cols-6 items-start gap-6">
-            <Card className="border-l col-span-2">
+          <section className="grid grid-cols-1 md:grid-cols-6 items-start gap-6">
+            <Card className="w-full border-l md:col-span-2">
               <CardHeader className="gap-6">
                 <img
                   src={course?.bannerUrl}
@@ -141,15 +141,15 @@ export function ViewCoursePage() {
               )}
             </Card>
 
-            <div className="col-span-4 space-y-10">
-              <article className="px-14 pt-24 py-6 rounded-lg bg-[url(https://img.freepik.com/vetores-gratis/fundo-de-gradiente-de-linhas-azuis-dinamicas_23-2148995756.jpg?t=st=1741912139~exp=1741915739~hmac=605557bbee48b97ab8735a8164bb5e01a17a12d0fb221d1adec21051a97600e4&w=996)]">
-                <h1 className="text-4xl font-semibold text-white">
+            <div className="md:col-span-4 space-y-10">
+              <article className="px-8 md:px-14 pt-24 py-6 rounded-lg bg-[url(/5559852.jpg)] bg-cover">
+                <h1 className="text-4xl font-semibold font-onest text-white">
                   {course?.name}
                 </h1>
               </article>
 
               <div className="space-y-3">
-                <h4 className="font-semibold text-xl">Descrição</h4>
+                <h4 className="font-semibold text-xl font-onest">Descrição</h4>
 
                 <div className="space-y-6 leading-8">
                   <p>{course?.description}</p>
@@ -162,11 +162,13 @@ export function ViewCoursePage() {
         <Separator />
 
         <section className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h5 className="text-4xl font-semibold">Opiniões do curso</h5>
+          <div className="flex flex-col md:flex-row md:items-center gap-6 justify-between">
+            <h5 className="text-2xl md:text-4xl font-semibold font-onest">
+              Avaliações sobre o Curso
+            </h5>
 
             <div className="flex gap-6">
-              <h5 className="text-5xl font-semibold text-primary">
+              <h5 className="text-5xl font-semibold text-primary font-onest">
                 {averageStars}
               </h5>
 
@@ -199,7 +201,9 @@ export function ViewCoursePage() {
               </div>
 
               <div>
-                <h5 className="text-xl text-primary font-medium">Resumo</h5>
+                <h5 className="text-xl text-primary font-medium font-onest">
+                  Resumo
+                </h5>
                 <p className="text-sm text-zinc-500">
                   Esse resumo é desenvolvido pela IA para que você tenha um
                   conhecimento sobre a opinião geral do curso.
@@ -240,7 +244,7 @@ export function ViewCoursePage() {
           </Card>
 
           <div className="space-y-4">
-            <h5 className="text-lg font-medium">Todas as opiniões</h5>
+            <h5 className="text-lg font-medium">Todas as avaliações</h5>
 
             {!course?.reviews.length && (
               <Card>

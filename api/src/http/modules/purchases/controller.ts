@@ -84,7 +84,7 @@ const generatePaymentUrl = MapErrors(
           coursesIds: JSON.stringify(data.map((item) => item.id)),
         },
         success_url: 'http://localhost:3001/my-courses?payment=success',
-        cancel_url: 'http://localhost:3001/cancel',
+        cancel_url: 'http://localhost:3001/my-courses?payment=cancel',
       });
       response.json({ url: session.url });
     } catch (error) {

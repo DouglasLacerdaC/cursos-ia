@@ -13,8 +13,11 @@ import {
 } from '@/view/components/ui/navigation-menu'
 import { Github } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useAuthContext } from '@/shared/contexts/auth-context'
 
 export function NavigationMenuDemo() {
+  const { isAuthenticated } = useAuthContext()
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -25,23 +28,22 @@ export function NavigationMenuDemo() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary to-primary/90 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
+                    <div className="mb-2 mt-4 text-lg font-medium text-white">
+                      Cursos IA
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
+                    <p className="text-sm leading-tight text-white/80">
+                      Conteúdo de alta qualidade para expandir seus
+                      conhecimentos e impulsionar seu crescimento!
                     </p>
                   </a>
                 </NavigationMenuLink>
               </li>
               <ListItem href="/" title="Início">
-                Veja nossa tela início e encontre recursos incríveis.
+                Explore tudo o que podemos oferecer para você. 🚀
               </ListItem>
               <ListItem href="/docs/installation" title="Installation">
                 How to install dependencies and structure your app.
@@ -59,13 +61,15 @@ export function NavigationMenuDemo() {
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link to="/my-courses">
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Meus cursos
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {isAuthenticated && (
+          <NavigationMenuItem>
+            <Link to="/my-courses">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Meus cursos
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        )}
         <NavigationMenuItem>
           <a href="https://github.com/DouglasLacerdaC">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
@@ -78,7 +82,7 @@ export function NavigationMenuDemo() {
   )
 }
 
-const ListItem = React.forwardRef<
+export const ListItem = React.forwardRef<
   React.ElementRef<'a'>,
   React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {

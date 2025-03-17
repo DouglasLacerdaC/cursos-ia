@@ -36,6 +36,7 @@ export function useController() {
 
   function handleBuyNow() {
     setIsLoadingCart(true)
+    if (course) addItem(course)
     navigate('/confirm-purchase')
   }
 

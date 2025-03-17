@@ -17,7 +17,7 @@ export const UserAuthValidate = MapErrors(
     if (!authorization) {
       request.user = null;
 
-      next();
+      return next();
     }
 
     const token = authorization ? authorization.replace('Bearer ', '') : '';
@@ -29,15 +29,12 @@ export const UserAuthValidate = MapErrors(
     if (!decoded || !decoded.userId) {
       request.user = null;
 
-      next();
+      return next();
     }
 
     const user = await UsersRepository.getById(decoded.userId);
 
     request.user = user;
-
-    console.log(user);
-    
 
     next();
   },

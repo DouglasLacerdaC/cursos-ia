@@ -17,7 +17,9 @@ export function LoginForm({
           <div className="p-6 md:p-12 md:py-24">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Bem-vindo de volta!</h1>
+                <h1 className="text-2xl font-bold font-onest">
+                  Bem-vindo de volta!
+                </h1>
                 <p className="text-balance text-muted-foreground">
                   Entre na sua conta Logo
                 </p>
@@ -25,7 +27,7 @@ export function LoginForm({
 
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                  Prossiga com
+                  Continue com
                 </span>
               </div>
 
