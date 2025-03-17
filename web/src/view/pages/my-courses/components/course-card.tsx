@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
 } from '@/view/components/ui/card'
-import { Link } from 'react-router-dom'
+import { BookOpen } from 'lucide-react'
 
 export function CourseCard({ course }: { course: CourseType }) {
   return (
@@ -24,8 +24,8 @@ export function CourseCard({ course }: { course: CourseType }) {
       </CardContent>
 
       <CardFooter>
-        <Button className="w-full" asChild>
-          <Link to={`/view-course/${course.id}`}>Acessar conteúdo</Link>
+        <Button className="w-full justify-between">
+          Acessar conteúdo <BookOpen size={16} />
         </Button>
       </CardFooter>
     </Card>
