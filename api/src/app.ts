@@ -1,5 +1,5 @@
 import cors from 'cors';
-import express, { Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import { serve, setup } from 'swagger-ui-express';
 
 import { ErrorHandler } from './config/errors/error-handler';
@@ -8,7 +8,14 @@ import { api } from './routes/api';
 
 export const app = express();
 
-app.use(express.json());
+app.use((req: Request, res: Response, next: NextFunction) => {
+  if (req.originalUrl === '/purchases/webhook') {
+    next(); // Evita que express.json() parseie o corpo do webhook
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
 app.use(cors({ origin: '*' }));
 
 app.get('/', (_, response: Response) => response.redirect('/swagger'));

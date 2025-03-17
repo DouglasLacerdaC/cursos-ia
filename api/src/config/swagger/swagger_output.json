@@ -28,7 +28,41 @@
     "application/json"
   ],
   "paths": {
-    "/users/me": {
+    "/auth/login-google": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Fazer login com o Google",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/auth/me": {
       "get": {
         "tags": [
           "Usuários"
@@ -170,6 +204,42 @@
         }
       }
     },
+    "/courses/my-courses": {
+      "get": {
+        "tags": [
+          "Cursos"
+        ],
+        "summary": "Lista de cursos do usuário logado",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/reviews/resume/{id}": {
+      "get": {
+        "tags": [
+          "Avaliações"
+        ],
+        "summary": "Gerar resumo por IA",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/reviews/": {
       "get": {
         "tags": [
@@ -204,13 +274,65 @@
         "tags": [
           "Avaliações"
         ],
-        "summary": "Lista de avaliações",
+        "summary": "Lista de avaliações por curso",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/purchases/": {
+      "get": {
+        "tags": [
+          "Purchase"
+        ],
+        "summary": "Lista de compras de pagamento",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/purchases/generate-payment-url": {
+      "get": {
+        "tags": [
+          "Purchase"
+        ],
+        "summary": "Generate payment URL Stripe",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/purchases/webhook": {
+      "post": {
+        "tags": [
+          "Purchase"
+        ],
+        "summary": "Webhook Stripe",
+        "description": "",
+        "parameters": [
+          {
+            "name": "stripe-signature",
+            "in": "header",
             "type": "string"
           }
         ],

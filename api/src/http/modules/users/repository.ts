@@ -9,10 +9,9 @@ async function getAll() {
 }
 
 async function getById(id: number) {
-  const data: Omit<UserModel, 'password'> | null =
-    await Prisma.users.findUnique({
-      where: { id },
-    });
+  const data: UserModel | null = await Prisma.users.findUnique({
+    where: { id },
+  });
 
   if (!data) throw new ApiError(400, 'Não foi possível encontrar usuário');
 

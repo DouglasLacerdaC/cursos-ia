@@ -8,6 +8,15 @@ import { ReviewsValidation } from './validation';
 
 export const ReviewsRoute = Router();
 
+ReviewsRoute.get('/resume/:id', ReviewsController.generateResume);
 ReviewsRoute.get('/', ReviewsController.index);
-ReviewsRoute.get('/:id', Validate(ReviewsValidation.byId), ReviewsController.getByCourse);
-ReviewsRoute.post('/', Validate(ReviewsValidation.add), ReviewsController.create);
+ReviewsRoute.get(
+  '/:id',
+  Validate(ReviewsValidation.byId),
+  ReviewsController.getByCourse,
+);
+ReviewsRoute.post(
+  '/',
+  Validate(ReviewsValidation.add),
+  ReviewsController.create,
+);

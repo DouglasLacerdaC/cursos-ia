@@ -4,9 +4,9 @@ export interface UserModel {
   id: number;
   name: string;
   email: string;
-  password: string;
+  avatar: string | null;
 }
 
 export interface UserAuthRequest extends Request {
-  user: Omit<UserModel, 'password'>;
+  user: UserModel;
 }

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 import { MapErrors } from '../../../config/errors/map-errors';
-import { CourseRequest } from './model';
+import { CourseRequest, GetAllMeRequest } from './model';
 import { CoursesRepository } from './repository';
 
 const index = MapErrors(async (request: CourseRequest, response: Response) => {
@@ -16,6 +16,22 @@ const index = MapErrors(async (request: CourseRequest, response: Response) => {
 
   return response.json(data);
 });
+
+const getMyCourses = MapErrors(
+  async (request: GetAllMeRequest, response: Response) => {
+    /*
+      #swagger.tags = ['Cursos']
+      #swagger.summary = 'Lista de cursos do usuário logado'
+    */
+
+    const userId = request.user.id;
+    const search = request.query.search;
+
+    const data = await CoursesRepository.getAllByUser(search, userId);
+
+    return response.json(data);
+  },
+);
 
 const getById = MapErrors(
   async (request: CourseRequest, response: Response) => {
@@ -32,4 +48,4 @@ const getById = MapErrors(
   },
 );
 
-export const CoursesController = { index, getById };
+export const CoursesController = { index, getById, getMyCourses };

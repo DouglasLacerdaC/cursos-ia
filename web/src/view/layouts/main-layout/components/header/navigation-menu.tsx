@@ -55,7 +55,14 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <Link to="/courses">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Nossos cursos
+              Cursos disponíveis
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link to="/my-courses">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Meus cursos
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

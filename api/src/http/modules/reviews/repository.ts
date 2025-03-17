@@ -9,8 +9,9 @@ async function getAll() {
 }
 
 async function getAllByCourse(id: number) {
-  const data =
-    await Prisma.$queryRaw`SELECT * FROM Reviews WHERE courseId = ${id}`;
+  const data = await Prisma.$queryRaw<
+    ReviewModel[]
+  >`SELECT * FROM Reviews WHERE courseId = ${id}`;
 
   return data;
 }

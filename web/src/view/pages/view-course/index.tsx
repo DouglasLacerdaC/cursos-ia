@@ -1,5 +1,6 @@
 import {
   Clock,
+  Loader2,
   Medal,
   MessageCircleOff,
   ShoppingCart,
@@ -21,7 +22,17 @@ import { Button } from '@/view/components/ui/button'
 import { useController } from './use-controller'
 
 export function ViewCoursePage() {
-  const { breadcrumbLinks, course, priceFormat, averageStars } = useController()
+  const {
+    breadcrumbLinks,
+    course,
+    priceFormat,
+    averageStars,
+    resumeReviews,
+    isLoadingResume,
+    isLoadingCart,
+    existCourseInCart,
+    handleAddNewItemInCart,
+  } = useController()
 
   return (
     <div className="py-16">
@@ -47,6 +58,7 @@ export function ViewCoursePage() {
                     <div className="flex items-center gap-2">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <Star
+                          key={index}
                           size={16}
                           className={
                             index < averageStars
@@ -86,10 +98,25 @@ export function ViewCoursePage() {
               </CardContent>
 
               <CardFooter className="flex-col gap-2 text-start">
-                <Button className="w-full">
-                  Adicionar ao carrinho{' '}
-                  <ShoppingCart className="ml-2" size={16} />
-                </Button>
+                {existCourseInCart ? (
+                  <Button
+                    className="w-full disabled:cursor-not-allowed"
+                    disabled
+                  >
+                    Curso já está no carrinho
+                    <ShoppingCart className="ml-2" size={16} />
+                  </Button>
+                ) : (
+                  <Button className="w-full" onClick={handleAddNewItemInCart}>
+                    Adicionar ao carrinho{' '}
+                    {isLoadingCart ? (
+                      <Loader2 className="ml-2 animate-spin" size={16} />
+                    ) : (
+                      <ShoppingCart className="ml-2" size={16} />
+                    )}
+                  </Button>
+                )}
+
                 <Button className="w-full" variant="secondary">
                   Comprar agora
                 </Button>
@@ -129,6 +156,7 @@ export function ViewCoursePage() {
                 <div className="flex items-center gap-2">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star
+                      key={index}
                       size={24}
                       className={
                         index < averageStars
@@ -156,7 +184,7 @@ export function ViewCoursePage() {
                 <h5 className="text-xl text-primary font-medium">Resumo</h5>
                 <p className="text-sm text-zinc-500">
                   Esse resumo é desenvolvido pela IA para que você tenha um
-                  conhecimento sobre a opinião geral do curso
+                  conhecimento sobre a opinião geral do curso.
                 </p>
               </div>
             </CardHeader>
@@ -164,13 +192,32 @@ export function ViewCoursePage() {
             <Separator />
 
             <CardContent className="py-4">
-              <p className="text-sm">
-                É amplamente elogiado por sua excelente qualidade, design
-                atraente e desempenho superior, com destaque para a câmera e a
-                duração da bateria. A experiência de uso é descrita como
-                satisfatória, especialmente para aqueles que estão migrando de
-                modelos anteriores ou de outras marcas.
-              </p>
+              {isLoadingResume ? (
+                <div className="flex items-center justify-center py-2">
+                  <div className="flex flex-col items-center gap-1">
+                    <Loader2
+                      size={20}
+                      className="stroke-primary animate-spin"
+                    />
+                    <span className="text-sm text-zinc-500">
+                      IA está gerando um resumo de avaliações para você
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <p
+                  className="text-sm"
+                  dangerouslySetInnerHTML={{
+                    __html: resumeReviews,
+                  }}
+                />
+              )}
+
+              {!resumeReviews && !isLoadingResume && (
+                <span className="text-sm text-zinc-500">
+                  Ainda não existe nenhuma avaliação para criar o resumo!
+                </span>
+              )}
             </CardContent>
           </Card>
 
@@ -198,13 +245,14 @@ export function ViewCoursePage() {
 
             <ul className="space-y-6">
               {course?.reviews.map((review) => (
-                <li className="space-y-2">
+                <li key={review.id} className="space-y-2">
                   <p className="text-sm">{review.review}</p>
 
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <Star
+                          key={index}
                           size={16}
                           className={
                             index < review.stars

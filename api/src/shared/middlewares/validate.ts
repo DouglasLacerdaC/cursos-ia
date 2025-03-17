@@ -7,9 +7,7 @@ import { InternalServerError } from '../../config/errors/api-error';
 export const Validate =
   (schema: Schema) =>
   async (request: Request, response: Response, next: NextFunction) => {
-    console.log(request.body);
-    
-    try {    
+    try {
       await schema.validate({
         body: request.body,
         query: request.query,

@@ -1,7 +1,14 @@
 import { Separator } from '@/view/components/ui/separator'
-import { WalletMinimal } from 'lucide-react'
+import { Loader2, Trash, WalletMinimal } from 'lucide-react'
+import { useController } from './use-controller'
+import { Card, CardContent, CardHeader } from '@/view/components/ui/card'
+import { formatMoney } from '@/shared/utils/format-money'
+import { Button } from '@/view/components/ui/button'
 
 export function ConfirmPurchase() {
+  const { itemsCart, removeItem, totalPrice, handlePurchase, isPending } =
+    useController()
+
   return (
     <div className="py-16">
       <main className="max-w-7xl mx-auto space-y-8">
@@ -20,6 +27,79 @@ export function ConfirmPurchase() {
         </section>
 
         <Separator />
+
+        <div className="grid grid-cols-6 gap-6">
+          <div className="col-span-4 space-y-4">
+            {itemsCart.length > 0 &&
+              itemsCart.map((course) => (
+                <Card key={course.id}>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      <img
+                        src="https://img.freepik.com/psd-gratuitas/icone-3d-com-balde-de-tinta_23-2150813748.jpg?t=st=1741905614~exp=1741909214~hmac=cc123fdcd8fd4ecfff6004aaab25331d3c2da451deb214f6cab58055664eda68&w=740"
+                        className="size-20 rounded-lg"
+                        alt=""
+                      />
+
+                      <div className="flex-1 flex items-start justify-between">
+                        <div className="space-y-3">
+                          <div className="-space-y-1">
+                            <span className="font-sm text-zinc-500">
+                              Novidade ✨
+                            </span>
+
+                            <h4 className="font-semibold text-xl">
+                              {course.name}
+                            </h4>
+                          </div>
+
+                          <p className="text-2xl font-semibold">
+                            {formatMoney(Number(course.price))}
+                          </p>
+                        </div>
+
+                        <Button
+                          variant="secondary"
+                          onClick={() => removeItem(course.id)}
+                        >
+                          <Trash size={16} />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+          </div>
+
+          <Card className="col-span-2">
+            <CardHeader>
+              <h4 className="font-medium text-zinc-500">Total</h4>
+              <strong className="text-3xl">{totalPrice}</strong>
+            </CardHeader>
+
+            <Separator />
+
+            <CardContent className="pt-4 space-y-2">
+              <Button
+                className="w-full"
+                onClick={handlePurchase}
+                disabled={isPending}
+              >
+                {isPending ? (
+                  <>
+                    Processando compra
+                    <Loader2 size={16} className="ml-2 animate-spin" />
+                  </>
+                ) : (
+                  <>Realizar pagamento</>
+                )}
+              </Button>
+              <Button className="w-full" variant="secondary">
+                Cancelar compra
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </main>
     </div>
   )

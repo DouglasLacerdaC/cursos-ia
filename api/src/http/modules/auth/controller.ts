@@ -1,37 +1,62 @@
-import { compareSync } from 'bcrypt';
+import axios from 'axios';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { JWT_SECRET } from '../../../config';
-import { ApiError } from '../../../config/errors/api-error';
 import { MapErrors } from '../../../config/errors/map-errors';
-import { UsersRepository } from '../users/repository';
+import { Prisma } from '../../../shared/services/prisma';
+import { UserAuthRequest } from '../users/model';
 
-const login = MapErrors(async (request: Request, response: Response) => {
+const loginGoogle = MapErrors(async (request: Request, response: Response) => {
   /*
     #swagger.tags = ['Autenticação']
-    #swagger.summary = 'Fazer login'
+    #swagger.summary = 'Fazer login com o Google'
   */
 
-  const { email, password } = request.body;
+  try {
+    const access_token = request.body.access_token;
 
-  const user = await UsersRepository.getByEmail(email);
-  if (!user) throw new ApiError(400, 'E-mail ou senha incorretos');
+    const { data } = await axios.get(
+      `https://www.googleapis.com/oauth2/v3/userinfo`,
+      { headers: { Authorization: `Bearer ${access_token}` } },
+    );
 
-  if (!user.password) throw new ApiError(400, 'E-mail ou senha incorretos');
+    let user = await Prisma.users.findUnique({ where: { email: data.email } });
 
-  const match = compareSync(password, user.password);
-  if (!match) throw new ApiError(400, 'E-mail ou senha incorretos');
+    if (!user) {
+      user = await Prisma.users.create({
+        data: {
+          name: data.name,
+          email: data.email,
+          avatar: data.picture,
+        },
+      });
+    }
 
-  const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '8h' });
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+      expiresIn: '7d',
+    });
 
-  return response.json({
-    token,
-    data: user,
-    message: 'Usuário autenticado com sucesso!',
-  });
+    response.json({ token });
+  } catch (error) {
+    response.status(500).json({ error: 'Falha ao autenticar com Google' });
+  }
+});
+
+const me = MapErrors(async (request: UserAuthRequest, response: Response) => {
+  /*
+    #swagger.tags = ['Usuários']
+    #swagger.summary = 'Obter usuário autenticado'
+
+    #swagger.security = [{"apiKeyAuth": []}]
+  */
+
+  const user = request.user;
+
+  return response.json(user);
 });
 
 export const AuthController = {
-  login,
+  loginGoogle,
+  me,
 };

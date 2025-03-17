@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import { MapErrors } from '../../../config/errors/map-errors';
-import { UserAuthRequest } from './model';
 import { UsersRepository } from './repository';
 
 const index = MapErrors(async (_: Request, response: Response) => {
@@ -55,17 +54,4 @@ const del = MapErrors(async (request: Request, response: Response) => {
   return response.json({ message: 'Usuário deletado com sucesso' });
 });
 
-const me = MapErrors(async (request: UserAuthRequest, response: Response) => {
-  /*
-    #swagger.tags = ['Usuários']
-    #swagger.summary = 'Obter usuário autenticado'
-
-    #swagger.security = [{"apiKeyAuth": []}]
-  */
-
-  const user = request.user;
-
-  return response.json(user);
-});
-
-export const UsersController = { me, index, add, edit, del };
+export const UsersController = { index, add, edit, del };

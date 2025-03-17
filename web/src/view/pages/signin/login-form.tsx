@@ -2,16 +2,19 @@ import { cn } from '@/shared/utils/cn'
 import { Button } from '@/view/components/ui/button'
 import { Card, CardContent } from '@/view/components/ui/card'
 import { GoogleLogo } from './google-logo'
+import { useController } from './use-controller'
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const { handleSignWithGoogle } = useController()
+
   return (
     <div className={cn('flex-1 flex flex-col gap-6', className)} {...props}>
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-12 md:py-24">
+          <div className="p-6 md:p-12 md:py-24">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Bem-vindo de volta!</h1>
@@ -26,7 +29,12 @@ export function LoginForm({
                 </span>
               </div>
 
-              <Button size="lg" className="w-full space-x-2" variant="outline">
+              <Button
+                size="lg"
+                className="w-full space-x-2"
+                variant="outline"
+                onClick={() => handleSignWithGoogle()}
+              >
                 <GoogleLogo />
 
                 <span>Entrar com o Google</span>
@@ -36,7 +44,7 @@ export function LoginForm({
                 Precisa de ajudar para acessar?{' '}
               </div>
             </div>
-          </form>
+          </div>
 
           <div className="relative hidden bg-muted md:block">
             <img

@@ -28,11 +28,11 @@ export function CoursesPage() {
         <section className="flex items-center gap-6">
           {courses && courses?.length > 1 ? (
             <p className="text-nowrap font-medium">
-              {courses?.length} resultados encontrados
+              {courses?.length} Resultados encontrados
             </p>
           ) : (
             <p className="text-nowrap font-medium">
-              {courses?.length} resultado encontrado
+              {courses?.length} Resultado encontrado
             </p>
           )}
 
@@ -45,14 +45,14 @@ export function CoursesPage() {
           />
         </section>
 
-        <section className="flex gap-4 flex-wrap">
+        <section className="grid grid-cols-3 gap-4">
           {courses &&
             courses.map((course) => (
-              <Card className="w-fit">
+              <Card className="w-full" key={course.id}>
                 <CardHeader>
                   <img
                     src={course.bannerUrl}
-                    className="w-72 h-full max-h-52 object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg"
                     alt=""
                   />
                 </CardHeader>
