@@ -39,4 +39,5 @@ export interface CourseDetailsType {
   updatedAt: string
   averageStars?: number
   reviews: ReviewType[]
+  userIsEnrolled?: boolean
 }

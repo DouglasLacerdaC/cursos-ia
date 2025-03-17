@@ -11,6 +11,12 @@ async function getAll(search?: string) {
   return data;
 }
 
+async function checkUserEnrollment(courseId: number, userId: number) {
+  const data = await Prisma.$queryRaw<[]>`SELECT * FROM EnrolledUsers WHERE userId = ${userId} AND courseId = ${courseId}`;
+
+  return data;
+}
+
 async function getAllByUser(search?: string, userId?: number) {
   const data = await Prisma.$queryRaw`
       SELECT * 
@@ -20,8 +26,7 @@ async function getAllByUser(search?: string, userId?: number) {
       AND eu.userId = ${userId}
     `;
 
-  if (!data)
-    throw new ApiError(404, 'Não foi possível encontrar o curso');
+  if (!data) throw new ApiError(404, 'Não foi possível encontrar o curso');
 
   return data;
 }
@@ -54,4 +59,5 @@ export const CoursesRepository = {
   getAll,
   getById,
   getAllByUser,
+  checkUserEnrollment,
 };

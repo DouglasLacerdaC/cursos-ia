@@ -41,8 +41,25 @@ const getById = MapErrors(
     */
 
     const courseId = request.params.id;
+    const userId = request.user?.id;
 
     const data = await CoursesRepository.getById(Number(courseId));
+
+    if (userId) {
+      const isEnrolled = await CoursesRepository.checkUserEnrollment(
+        data.id,
+        userId,
+      );
+
+      if (isEnrolled && isEnrolled.length > 0) {
+        console.log('caiu aqui');
+
+        return response.json({
+          ...data,
+          userIsEnrolled: true,
+        });
+      }
+    }
 
     return response.json(data);
   },

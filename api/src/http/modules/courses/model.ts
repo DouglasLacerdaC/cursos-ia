@@ -1,7 +1,7 @@
 import { Decimal } from '@prisma/client/runtime/library';
 import { Request } from 'express';
 
-import { UserAuthRequest } from '../users/model';
+import { UserAuthRequest, UserModel } from '../users/model';
 
 export interface CourseModel {
   id: number;
@@ -19,6 +19,7 @@ export interface ReviewModel {
 }
 
 export interface CourseRequest extends Request {
+  user: UserModel | null;
   query: {
     search?: string;
   };
@@ -31,4 +32,14 @@ export interface GetAllMeRequest extends UserAuthRequest {
   query: {
     search?: string;
   };
+}
+
+export interface GetAllMeRequest extends UserAuthRequest {
+  query: {
+    search?: string;
+  };
+}
+
+export interface UserAuthValidateRequest extends Request {
+  user: UserModel | null;
 }

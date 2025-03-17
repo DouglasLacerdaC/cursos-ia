@@ -1,4 +1,5 @@
 import {
+  ArrowUpRight,
   Clock,
   Loader2,
   Medal,
@@ -20,6 +21,7 @@ import {
 import { Separator } from '@/view/components/ui/separator'
 import { Button } from '@/view/components/ui/button'
 import { useController } from './use-controller'
+import { Link } from 'react-router-dom'
 
 export function ViewCoursePage() {
   const {
@@ -98,34 +100,45 @@ export function ViewCoursePage() {
                 </ul>
               </CardContent>
 
-              <CardFooter className="flex-col gap-2 text-start">
-                {existCourseInCart ? (
-                  <Button
-                    className="w-full disabled:cursor-not-allowed"
-                    disabled
-                  >
-                    Curso já está no carrinho
-                    <ShoppingCart className="ml-2" size={16} />
+              {course?.userIsEnrolled ? (
+                <CardFooter>
+                  <Button className="w-full" asChild>
+                    <Link to="/my-courses">
+                      Você já possui esse curso{' '}
+                      <ArrowUpRight className="ml-2" size={16} />
+                    </Link>
                   </Button>
-                ) : (
-                  <Button className="w-full" onClick={handleAddNewItemInCart}>
-                    Adicionar ao carrinho{' '}
-                    {isLoadingCart ? (
-                      <Loader2 className="ml-2 animate-spin" size={16} />
-                    ) : (
+                </CardFooter>
+              ) : (
+                <CardFooter className="flex-col gap-2 text-start">
+                  {existCourseInCart ? (
+                    <Button
+                      className="w-full disabled:cursor-not-allowed"
+                      disabled
+                    >
+                      Curso já está no carrinho
                       <ShoppingCart className="ml-2" size={16} />
-                    )}
-                  </Button>
-                )}
+                    </Button>
+                  ) : (
+                    <Button className="w-full" onClick={handleAddNewItemInCart}>
+                      Adicionar ao carrinho{' '}
+                      {isLoadingCart ? (
+                        <Loader2 className="ml-2 animate-spin" size={16} />
+                      ) : (
+                        <ShoppingCart className="ml-2" size={16} />
+                      )}
+                    </Button>
+                  )}
 
-                <Button
-                  className="w-full"
-                  variant="secondary"
-                  onClick={handleBuyNow}
-                >
-                  Comprar agora
-                </Button>
-              </CardFooter>
+                  <Button
+                    className="w-full"
+                    variant="secondary"
+                    onClick={handleBuyNow}
+                  >
+                    Comprar agora
+                  </Button>
+                </CardFooter>
+              )}
             </Card>
 
             <div className="col-span-4 space-y-10">

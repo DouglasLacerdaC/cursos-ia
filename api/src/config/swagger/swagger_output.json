@@ -158,6 +158,20 @@
         }
       }
     },
+    "/courses/me": {
+      "get": {
+        "tags": [
+          "Cursos"
+        ],
+        "summary": "Lista de cursos do usuário logado",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/courses/": {
       "get": {
         "tags": [
@@ -181,35 +195,6 @@
     },
     "/courses/{id}": {
       "get": {
-        "tags": [
-          "Cursos"
-        ],
-        "summary": "Obter um curso",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Solicitação Inválida"
-          }
-        }
-      }
-    },
-    "/courses/my-courses": {
-      "get": {
-        "tags": [
-          "Cursos"
-        ],
-        "summary": "Lista de cursos do usuário logado",
         "description": "",
         "responses": {
           "default": {
