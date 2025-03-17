@@ -47,10 +47,10 @@ export function Cart() {
             itemsCart.map((course) => (
               <Card key={course.id}>
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-6">
                     <img
                       src={course.bannerUrl}
-                      className="size-20 rounded-lg object-cover"
+                      className="w-28 rounded-lg object-cover"
                       alt=""
                     />
 

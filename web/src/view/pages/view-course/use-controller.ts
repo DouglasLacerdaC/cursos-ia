@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { CoursesService } from '@/shared/services/courses'
 import { IAService } from '@/shared/services/ia'
@@ -10,6 +10,7 @@ import { useCart } from '@/shared/contexts/cart-context'
 export function useController() {
   const { id } = useParams()
   const { addItem, existInCart } = useCart()
+  const navigate = useNavigate()
 
   const [isLoadingCart, setIsLoadingCart] = useState(false)
 
@@ -31,6 +32,11 @@ export function useController() {
       setIsLoadingCart(false)
       if (course) addItem(course)
     }, 1000)
+  }
+
+  function handleBuyNow() {
+    setIsLoadingCart(true)
+    navigate('/confirm-purchase')
   }
 
   const existCourseInCart = course && existInCart(course?.id)
@@ -59,5 +65,6 @@ export function useController() {
     isLoadingCart,
     existCourseInCart,
     handleAddNewItemInCart,
+    handleBuyNow,
   }
 }

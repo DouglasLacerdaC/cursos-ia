@@ -6,8 +6,14 @@ import { formatMoney } from '@/shared/utils/format-money'
 import { Button } from '@/view/components/ui/button'
 
 export function ConfirmPurchase() {
-  const { itemsCart, removeItem, totalPrice, handlePurchase, isPending } =
-    useController()
+  const {
+    itemsCart,
+    removeItem,
+    totalPrice,
+    handlePurchase,
+    isPending,
+    handleResetCart,
+  } = useController()
 
   return (
     <div className="py-16">
@@ -34,10 +40,10 @@ export function ConfirmPurchase() {
               itemsCart.map((course) => (
                 <Card key={course.id}>
                   <CardContent className="p-4">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-6">
                       <img
-                        src="https://img.freepik.com/psd-gratuitas/icone-3d-com-balde-de-tinta_23-2150813748.jpg?t=st=1741905614~exp=1741909214~hmac=cc123fdcd8fd4ecfff6004aaab25331d3c2da451deb214f6cab58055664eda68&w=740"
-                        className="size-20 rounded-lg"
+                        src={course.bannerUrl}
+                        className="w-48 h-auto rounded-lg object-cover"
                         alt=""
                       />
 
@@ -94,7 +100,11 @@ export function ConfirmPurchase() {
                   <>Realizar pagamento</>
                 )}
               </Button>
-              <Button className="w-full" variant="secondary">
+              <Button
+                className="w-full"
+                variant="secondary"
+                onClick={handleResetCart}
+              >
                 Cancelar compra
               </Button>
             </CardContent>

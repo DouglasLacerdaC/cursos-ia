@@ -31,6 +31,7 @@ export function ViewCoursePage() {
     isLoadingResume,
     isLoadingCart,
     existCourseInCart,
+    handleBuyNow,
     handleAddNewItemInCart,
   } = useController()
 
@@ -117,7 +118,11 @@ export function ViewCoursePage() {
                   </Button>
                 )}
 
-                <Button className="w-full" variant="secondary">
+                <Button
+                  className="w-full"
+                  variant="secondary"
+                  onClick={handleBuyNow}
+                >
                   Comprar agora
                 </Button>
               </CardFooter>

@@ -3,9 +3,16 @@ import { purchasesService } from '@/shared/services/purchases'
 import { formatMoney } from '@/shared/utils/format-money'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 export function useController() {
-  const { itemsCart, removeItem } = useCart()
+  const { itemsCart, removeItem, resetCart } = useCart()
+  const navigate = useNavigate()
+
+  function handleResetCart() {
+    resetCart()
+    navigate('/courses')
+  }
 
   const { isPending, mutateAsync } = useMutation({
     mutationFn: purchasesService.generatePaymentUrl,
@@ -33,5 +40,6 @@ export function useController() {
     isPending,
     removeItem,
     handlePurchase,
+    handleResetCart,
   }
 }

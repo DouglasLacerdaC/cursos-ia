@@ -15,6 +15,7 @@ interface CartContextType {
   addItem: (item: CourseCartType) => void
   removeItem: (id: number) => void
   existInCart: (id: number) => boolean
+  resetCart: () => void
 }
 
 const CartSchema = z.object({
@@ -68,6 +69,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     return !!itemsCart.find((course) => course.id == id)
   }
 
+  function resetCart() {
+    setItemsCart([])
+    localStorage.removeItem('cart')
+  }
+
   useEffect(() => {
     const paymentStatus = searchParams.get('payment')
 
@@ -98,7 +104,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ itemsCart, addItem, removeItem, existInCart }}
+      value={{ itemsCart, addItem, removeItem, existInCart, resetCart }}
     >
       {children}
     </CartContext.Provider>
