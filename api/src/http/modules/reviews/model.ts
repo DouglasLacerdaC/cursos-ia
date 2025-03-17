@@ -1,5 +1,7 @@
 import { Request } from 'express';
 
+import { UserAuthRequest } from '../users/model';
+
 export interface ReviewModel {
   id: number;
   stars: number;
@@ -9,6 +11,15 @@ export interface ReviewModel {
 }
 
 export interface ReviewRequest extends Request {
+  query: {
+    search?: string;
+  };
+  params: {
+    id?: string;
+  };
+}
+
+export interface ReviewCreateRequest extends UserAuthRequest {
   query: {
     search?: string;
   };

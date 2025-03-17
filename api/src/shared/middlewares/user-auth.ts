@@ -27,7 +27,7 @@ export const UserAuth = MapErrors(
 
     const user = await UsersRepository.getById(decoded.userId);
 
-    request.user = user;    
+    request.user = user;
 
     next();
   },

@@ -2,7 +2,7 @@ import { Response } from 'express';
 
 import { MapErrors } from '../../../config/errors/map-errors';
 import { generateResumeGemini } from '../../../shared/services/gemini';
-import { ReviewRequest } from './model';
+import { ReviewCreateRequest, ReviewRequest } from './model';
 import { ReviewsRepository } from './repository';
 
 const index = MapErrors(async (_: ReviewRequest, response: Response) => {
@@ -49,17 +49,20 @@ const getByCourse = MapErrors(
   },
 );
 
-const create = MapErrors(async (request: ReviewRequest, response: Response) => {
-  /*
+const create = MapErrors(
+  async (request: ReviewCreateRequest, response: Response) => {
+    /*
     #swagger.tags = ['Avaliações']
     #swagger.summary = 'Criar avaliação'
   */
 
-  const reviewData = request.body;
+    const reviewData = request.body;
+    const user = request.user;
 
-  const data = await ReviewsRepository.create(reviewData);
+    const data = await ReviewsRepository.create(reviewData, user.id);
 
-  return response.json(data);
-});
+    return response.json(data);
+  },
+);
 
 export const ReviewsController = { index, getByCourse, create, generateResume };

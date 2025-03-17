@@ -22,14 +22,14 @@ async function destroy(id: number) {
   return data;
 }
 
-async function create(review: ReviewModel) {
+async function create(review: ReviewModel, userId: number) {
   // const data = await Prisma.reviews.create({ data: review });
 
   const dateNow = new Date().toISOString();
 
   const data = await Prisma.$queryRaw<{ id: number }[]>`
       INSERT INTO Reviews (review, stars, userId, courseId, updatedAt)
-      VALUES (${review.review}, ${review.stars}, ${review.userId}, ${review.courseId}, ${dateNow})
+      VALUES (${review.review}, ${review.stars}, ${userId}, ${review.courseId}, ${dateNow})
       RETURNING id`;
 
   if (!data) throw new ApiError(404, 'Não foi possível criar a avaliação.');
