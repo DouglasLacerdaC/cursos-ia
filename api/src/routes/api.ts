@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { AuthRoute } from '../http/modules/auth/route';
+import { CartRoute } from '../http/modules/cart/route';
 import { CoursesRoute } from '../http/modules/courses/route';
 import { PurchaseRoute } from '../http/modules/purchases/route';
 import { ReviewsRoute } from '../http/modules/reviews/route';
@@ -14,3 +15,4 @@ api.use('/users', UsersRoute);
 api.use('/courses', CoursesRoute);
 api.use('/reviews', ReviewsRoute);
 api.use('/purchases', PurchaseRoute);
+api.use('/cart', CartRoute);

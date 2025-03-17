@@ -9,6 +9,9 @@ import { CourseCartType } from '../services/courses/types'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
 import { useSearchParams } from 'react-router-dom'
+import { useAuthContext } from './auth-context'
+import { useMutation } from '@tanstack/react-query'
+import { cartService } from '../services/cart'
 
 interface CartContextType {
   itemsCart: CourseCartType[]
@@ -28,9 +31,19 @@ const CartSchema = z.object({
 const CartContext = createContext({} as CartContextType)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { isAuthenticated } = useAuthContext()
   const [itemsCart, setItemsCart] = useState<CourseCartType[]>([])
 
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const { mutateAsync } = useMutation({
+    mutationFn: cartService.getAvailableItems,
+    onSuccess: (response) => {
+      localStorage.setItem('cart', JSON.stringify(response))
+      setItemsCart(response)
+    },
+    onError: (response) => console.log(response),
+  })
 
   function addItem(item: CourseCartType) {
     const existItem = itemsCart.find((course) => course.id == item.id)
@@ -103,7 +116,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const result = CartListSchema.safeParse(cartStorage)
 
       if (result.success) {
-        setItemsCart(cartStorage)
+        if (isAuthenticated) {
+          const ids = result.data?.map((item) => item.id)
+
+          async function onMutate() {
+            await mutateAsync(ids)
+          }
+
+          onMutate()
+        } else {
+          setItemsCart(cartStorage)
+        }
       }
     }
   }, [])

@@ -52,8 +52,6 @@ const getById = MapErrors(
       );
 
       if (isEnrolled && isEnrolled.length > 0) {
-        console.log('caiu aqui');
-
         return response.json({
           ...data,
           userIsEnrolled: true,

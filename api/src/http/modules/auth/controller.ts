@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { JWT_SECRET } from '../../../config';
 import { MapErrors } from '../../../config/errors/map-errors';
+import { googleService } from '../../../shared/services/google';
 import { Prisma } from '../../../shared/services/prisma';
 import { UserAuthRequest } from '../users/model';
 
@@ -16,10 +16,7 @@ const loginGoogle = MapErrors(async (request: Request, response: Response) => {
   try {
     const access_token = request.body.access_token;
 
-    const { data } = await axios.get(
-      `https://www.googleapis.com/oauth2/v3/userinfo`,
-      { headers: { Authorization: `Bearer ${access_token}` } },
-    );
+    const data = await googleService(access_token);
 
     let user = await Prisma.users.findUnique({ where: { email: data.email } });
 
