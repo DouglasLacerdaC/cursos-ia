@@ -106,7 +106,7 @@ export function ViewCoursePage() {
                 <CardFooter>
                   <Button className="w-full" asChild>
                     <Link to="/my-courses">
-                      Você já possui esse curso{' '}
+                      Você já possui este curso{' '}
                       <ArrowUpRight className="ml-2" size={16} />
                     </Link>
                   </Button>
