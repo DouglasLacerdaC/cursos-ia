@@ -6,7 +6,7 @@ API desenvolvida para integração com o sistema de cursos! Com integrações ao
 
 - [Express](https://expressjs.com/pt-br/) - Framework
 - [Typescript](https://www.typescriptlang.org/) - Superset do javascript
-- [Prisma](https://www.prisma.io/) - Gerenciador de rotas do React
+- [Prisma](https://www.prisma.io/) - ORM do NodeJS
 - [Yup](https://www.npmjs.com/package/yup) - Validador de schemas typescript
 
 ## 📦️ Pré-Requisitos
