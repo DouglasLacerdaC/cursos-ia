@@ -49,11 +49,7 @@ export function LoginForm({
           </div>
 
           <div className="relative hidden bg-muted md:block">
-            <img
-              src="https://img.freepik.com/vetores-gratis/fundo-ondulado-bonito_23-2148465606.jpg?t=st=1741914472~exp=1741918072~hmac=23ce7be4731225f0e83e76e8a16a40808cc9439a51a17878b7a8bc6c946becd6&w=996"
-              alt="Image"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
+            <div className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-gradient-to-r from-primary via-indigo-700 to-indigo-700" />
           </div>
         </CardContent>
       </Card>
