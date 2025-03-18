@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import { cn } from '@/shared/utils/cn'
-// import { Icons } from '@/components/icons'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -24,17 +23,13 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Tela inicial</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.90fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary to-primary/90 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mb-2 mt-4 text-lg font-medium text-white">
-                      Cursos IA
-                    </div>
                     <p className="text-sm leading-tight text-white/80">
                       Conteúdo de alta qualidade para expandir seus
                       conhecimentos e impulsionar seu crescimento!
@@ -44,12 +39,6 @@ export function NavigationMenuDemo() {
               </li>
               <ListItem href="/" title="Início">
                 Explore tudo o que podemos oferecer para você. 🚀
-              </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
           </NavigationMenuContent>

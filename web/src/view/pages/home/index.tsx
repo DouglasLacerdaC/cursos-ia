@@ -78,7 +78,7 @@ export function HomePage() {
         <section className="space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <h3 className="text-4xl font-semibold text-nowrap">
-              Alguns cursos
+              Lista de cursos
             </h3>
 
             <Separator className="hidden md:inline-block" />
