@@ -21,7 +21,7 @@ export function LoginForm({
                   Bem-vindo de volta!
                 </h1>
                 <p className="text-balance text-muted-foreground">
-                  Entre na sua conta Logo
+                  Entre na sua conta
                 </p>
               </div>
 
@@ -41,10 +41,6 @@ export function LoginForm({
 
                 <span>Entrar com o Google</span>
               </Button>
-
-              <div className="text-center text-sm">
-                Precisa de ajudar para acessar?{' '}
-              </div>
             </div>
           </div>
 
