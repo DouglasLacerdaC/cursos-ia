@@ -48,6 +48,7 @@ export function CreateReviewModal() {
         <div className="flex gap-4 pt-4">
           {Array.from({ length: 5 }).map((_, index) => (
             <Star
+              key={index}
               size={32}
               data-active={index + 1 <= quantityStars}
               className="cursor-pointer fill-zinc-300 stroke-zinc-300 data-[active=true]:stroke-primary data-[active=true]:fill-primary"

@@ -47,14 +47,11 @@ export function NavUser({ user }: NavUserProps) {
           className="px-2 gap-2 data-[state=open]:bg-secondary data-[state=open]:text-secondary-foreground"
         >
           {!isLoading && (
-            <Avatar className="h-8 w-8 rounded-lg">
-              {!isLoading && user.avatar ? (
-                <AvatarImage src={user.avatar} alt={user.name} />
-              ) : (
-                <AvatarFallback className="rounded-lg">
-                  {getInitialsName(user.name)}
-                </AvatarFallback>
-              )}
+            <Avatar className="h-8 w-8 rounded-lg bg-primary/20">
+              <AvatarImage src={user.avatar} alt={user.name} />
+              <AvatarFallback className="rounded-lg">
+                {getInitialsName(user.name)}
+              </AvatarFallback>
             </Avatar>
           )}
 
@@ -81,7 +78,7 @@ export function NavUser({ user }: NavUserProps) {
           <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
             <Avatar className="h-8 w-8 rounded-lg">
               <AvatarImage src={user.avatar} alt={user.name} />
-              <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              <AvatarFallback className="rounded-lg">{getInitialsName(user.name)}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">{user.name}</span>
