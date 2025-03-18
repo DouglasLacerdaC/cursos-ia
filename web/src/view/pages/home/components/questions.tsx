@@ -14,7 +14,7 @@ export function Questions() {
       className="w-full bg-white p-6 rounded-lg"
     >
       {faq.map((question) => (
-        <AccordionItem value={`${question.id}`}>
+        <AccordionItem key={question.id} value={`${question.id}`}>
           <AccordionTrigger className="py-6 text-start">
             {question.question}
           </AccordionTrigger>

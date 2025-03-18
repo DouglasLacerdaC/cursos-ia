@@ -1,6 +1,12 @@
 import { useAuthContext } from '@/shared/contexts/auth-context'
 import { Button } from '@/view/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/view/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/view/components/ui/sheet'
 import { Github, LogIn, Menu } from 'lucide-react'
 import { NavUser } from '../header/nav-user'
 import { Link } from 'react-router-dom'
@@ -25,6 +31,10 @@ export function SheetMobile() {
       </SheetTrigger>
 
       <SheetContent className="space-y-6">
+        <SheetHeader>
+          <SheetTitle className="text-start">Menu</SheetTitle>
+        </SheetHeader>
+
         <NavigationMenu className="-ml-1">
           <NavigationMenuList className="flex-col items-start gap-2">
             <NavigationMenuItem>

@@ -4,11 +4,18 @@ import { CoursesPage } from '@/view/pages/courses'
 import { HomePage } from '@/view/pages/home'
 import SignInPage from '@/view/pages/signin'
 import { ViewCoursePage } from '@/view/pages/view-course'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { AuthGuard } from './auth-guard'
 import { MyCoursesPage } from '@/view/pages/my-courses'
+import { useEffect } from 'react'
 
 export function Router() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [location])
+
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

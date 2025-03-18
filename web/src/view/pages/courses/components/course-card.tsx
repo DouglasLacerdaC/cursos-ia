@@ -6,16 +6,19 @@ import { Link } from 'react-router-dom'
 
 export function CourseCard({ course }: { course: CourseType }) {
   return (
-    <div className="bg-white rounded-lg w-full" data-aos="fade-up">
+    <div
+      className="bg-white flex flex-col rounded-lg w-full"
+      data-aos="fade-up"
+    >
       <CardHeader>
         <img
           src={course.bannerUrl}
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-52 object-cover rounded-lg"
           alt=""
         />
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="flex-1 space-y-4">
         <h4 className="text-lg font-semibold font-onest">{course.name}</h4>
 
         <ul className="space-y-2">

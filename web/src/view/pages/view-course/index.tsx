@@ -239,7 +239,7 @@ export function ViewCoursePage() {
 
               {!resumeReviews && !isLoadingResume && (
                 <span className="text-sm text-zinc-500">
-                  Ainda não existe nenhuma avaliação para criar o resumo!
+                  Ainda não há avaliações suficientes para gerar um resumo!
                 </span>
               )}
             </CardContent>
@@ -301,7 +301,9 @@ export function ViewCoursePage() {
               ))}
             </ul>
 
-            {course && <ReviewsModal reviews={course.reviews} />}
+            {course && course.reviews.length > 3 && (
+              <ReviewsModal reviews={course.reviews} />
+            )}
           </div>
         </section>
       </main>

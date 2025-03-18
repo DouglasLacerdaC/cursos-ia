@@ -83,14 +83,21 @@ export function HomePage() {
 
             <Separator className="hidden md:inline-block" />
 
-            <Button className="w-fit">
-              Visualizar todos os cursos <ArrowUpRight size={16} />
+            <Button className="w-fit" asChild>
+              <Link to="/courses">
+                Visualizar todos os cursos{' '}
+                <ArrowUpRight className="ml-2" size={16} />
+              </Link>
             </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {data &&
-              data.slice(0, 3).map((course) => <CourseCard course={course} />)}
+              data
+                .slice(0, 3)
+                .map((course) => (
+                  <CourseCard key={course.id} course={course} />
+                ))}
           </div>
         </section>
 

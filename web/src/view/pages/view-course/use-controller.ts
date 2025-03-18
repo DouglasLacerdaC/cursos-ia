@@ -24,7 +24,7 @@ export function useController() {
   const { data: resumeReviews, isFetching: isLoadingResume } = useQuery({
     queryKey: [`resume-ia/${id}`],
     queryFn: () => IAService.generateReviewResume(Number(id)),
-    enabled: (course && course.reviews.length > 0) === true,
+    enabled: (course && course.reviews.length > 2) === true,
   })
 
   function handleAddNewItemInCart() {
