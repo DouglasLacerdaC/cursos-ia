@@ -1,5 +1,5 @@
-# [Nome do projeto]
-Template base para desenvolver novos projetos Front-end.
+# Feedback IA - Front-end
+Front-end voltado a vendas de cursos! Com integrações ao Stripe, Gemini e GoogleOAuth.
 
 ![Screenshot](./public/readme-cover.png)
 
@@ -7,7 +7,6 @@ Template base para desenvolver novos projetos Front-end.
 - [React](https://react.dev/) - Framework web
 - [Typescript](https://www.typescriptlang.org/) - Superset do javascript
 - [React Router Dom](https://reactrouter.com/en/main) - Gerenciador de rotas do React
-- [Hook-form / Resolvers](https://react-hook-form.com/) - Gerenciamento de formulários
 - [Vite](https://vitejs.dev/) - Bundler e dev-server
 - [Shadcn/UI](https://ui.shadcn.com/) - Componentes com funcionalidades prontas para interface
 - [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
@@ -15,12 +14,12 @@ Template base para desenvolver novos projetos Front-end.
 - [Zod](https://zod.dev/) - Validador de schemas typescript
 
 ## 📦️ Pré-Requisitos
-Antes de começar você vai precisar ter instalado na sua máquina as ferramentas [Git](https://git-scm.com/) e [Docker](https://www.docker.com/).
+Antes de começar você vai precisar ter instalado na sua máquina as ferramentas [Git](https://git-scm.com/).
 
 ## ⚡ Executando o projeto
 1. Clone o repositório
 ```
-  git clone [repo]
+  git clone https://github.com/DouglasLacerdaC/feedback-ia
 ```
 2. Acesse o container do node e rode o comando para instalar as dependências na pasta principal
 ```
