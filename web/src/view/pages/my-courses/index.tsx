@@ -4,9 +4,10 @@ import { InputSearch } from '@/view/components/developer/input-search'
 
 import { CourseCard } from './components/course-card'
 import { CourseEmptyCard } from '@/view/components/developer/course-empty-card'
+import { Loader2 } from 'lucide-react'
 
 export function MyCoursesPage() {
-  const { courses, setSearch } = useController()
+  const { courses, setSearch, isLoading } = useController()
 
   return (
     <div className="py-16">
@@ -34,18 +35,26 @@ export function MyCoursesPage() {
         </section>
 
         <section className="grid grid-cols-3 gap-4">
-          {courses &&
+          {!isLoading &&
+            courses &&
             courses.map((course) => (
-              <CourseCard course={course} key={course.id} />
+              <CourseCard key={course.id} course={course} />
             ))}
         </section>
 
-        {(!courses || courses.length == 0) && (
-          <CourseEmptyCard
-            title="Nenhum curso encontrado!"
-            description="Verifique nossa loja e adquira um curso para realizar!"
-          />
+        {isLoading && (
+          <div className="w-full flex justify-center">
+            <Loader2 size={16} className="animate-spin" />
+          </div>
         )}
+
+        {(!isLoading && !courses) ||
+          (courses?.length == 0 && (
+            <CourseEmptyCard
+              title="Nenhum curso encontrado!"
+              description="Verifique nossa loja e adquira um curso para realizar!"
+            />
+          ))}
       </main>
     </div>
   )

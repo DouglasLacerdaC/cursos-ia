@@ -5,7 +5,7 @@ import { useState } from 'react'
 export function useController() {
   const [search, setSearch] = useState('')
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['courses', { search }],
     queryFn: () => CoursesService.getAll(search),
   })
@@ -13,5 +13,6 @@ export function useController() {
   return {
     courses: data,
     setSearch,
+    isLoading,
   }
 }

@@ -1,12 +1,19 @@
 import { Response } from 'express';
 
+// import { PurchaseRepository } from './repository';
+// import fs from 'fs';
 import { ApiError } from '../../../config/errors/api-error';
 import { MapErrors } from '../../../config/errors/map-errors';
+import {
+  enrolledSuccessMailHTML,
+  paymentSuccessMailHTML,
+} from '../../../shared/libs/html-template';
+import { Resend } from '../../../shared/services/resender';
 import { stripe } from '../../../shared/services/stripe';
 import { UserAuthRequest } from '../users/model';
+import { UsersRepository } from '../users/repository';
 import { PurchaseRequest } from './model';
 import { PurchaseRepository } from './repository';
-// import { PurchaseRepository } from './repository';
 
 const index = MapErrors(async (_: PurchaseRequest, response: Response) => {
   /*
@@ -38,10 +45,37 @@ const webhook = MapErrors(
         const session = event.data.object;
         const userId = session?.metadata?.userId;
 
+        const userData = await UsersRepository.getById(Number(userId));
+
+        const { error: errorPaymentMail } = await Resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: userData.email,
+          subject: 'Pagamento confirmado! ✨',
+          html: paymentSuccessMailHTML(userData.name),
+        });
+
+        if (errorPaymentMail) console.error(errorPaymentMail);
+
         const coursesIds =
           session.metadata && JSON.parse(session.metadata.coursesIds);
 
-        await PurchaseRepository.createAll(coursesIds, Number(userId));
+        const enrolledSuccess = await PurchaseRepository.createAll(
+          coursesIds,
+          Number(userId),
+        );
+
+        const courses = await PurchaseRepository.getAllByIds(
+          enrolledSuccess.map((course) => String(course.courseId)),
+        );
+
+        const { error: errorEnrolledMail } = await Resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: userData.email,
+          subject: '🎉 Parabéns! Você foi matriculado!',
+          html: enrolledSuccessMailHTML(userData.name, courses),
+        });
+
+        if (errorEnrolledMail) console.error(errorEnrolledMail);
       }
 
       response.json({ received: true });

@@ -3,9 +3,10 @@ import { useController } from './use-controller'
 import { CourseCard } from './components/course-card'
 import { InputSearch } from '@/view/components/developer/input-search'
 import { CourseEmptyCard } from '@/view/components/developer/course-empty-card'
+import { Loader2 } from 'lucide-react'
 
 export function CoursesPage() {
-  const { courses, setSearch } = useController()
+  const { courses, setSearch, isLoading } = useController()
 
   return (
     <div className="py-16">
@@ -34,13 +35,20 @@ export function CoursesPage() {
         </section>
 
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {courses &&
+          {!isLoading &&
+            courses &&
             courses.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
         </section>
 
-        {(!courses || courses?.length == 0) && (
+        {isLoading && (
+          <div className="w-full flex justify-center">
+            <Loader2 size={16} className="animate-spin" />
+          </div>
+        )}
+
+        {!isLoading && (!courses || courses?.length == 0) && (
           <CourseEmptyCard
             title="Nenhum curso encontrado!"
             description="Melhore seu filtro de busca para retornar melhores resultados!"

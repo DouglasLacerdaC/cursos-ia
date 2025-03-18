@@ -25,7 +25,7 @@ async function createAll(ids: number[], userId: number) {
     userId: userId,
   }));
 
-  const data = await Prisma.enrolledUsers.createMany({
+  const data = await Prisma.enrolledUsers.createManyAndReturn({
     data: purchases,
   });
 
