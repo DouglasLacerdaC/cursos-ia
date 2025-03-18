@@ -8,8 +8,6 @@ import {
   Sparkles,
   Star,
 } from 'lucide-react'
-import { format, parseISO } from 'date-fns'
-import { pt } from 'date-fns/locale'
 
 import { NavigateBreadcrumb } from '@/view/components/developer/navigate-breadcrumb'
 import {
@@ -22,6 +20,9 @@ import { Separator } from '@/view/components/ui/separator'
 import { Button } from '@/view/components/ui/button'
 import { useController } from './use-controller'
 import { Link } from 'react-router-dom'
+import { CreateReviewModal } from './components/create-review-modal'
+import { formatDate } from '@/shared/utils/format-date'
+import { ReviewsModal } from './components/reviews-modal'
 
 export function ViewCoursePage() {
   const {
@@ -33,6 +34,7 @@ export function ViewCoursePage() {
     isLoadingResume,
     isLoadingCart,
     existCourseInCart,
+    isAuthenticated,
     handleBuyNow,
     handleAddNewItemInCart,
   } = useController()
@@ -244,7 +246,13 @@ export function ViewCoursePage() {
           </Card>
 
           <div className="space-y-4">
-            <h5 className="text-lg font-medium">Todas as avaliações</h5>
+            <div className="flex items-center justify-between">
+              <h5 className="text-lg font-medium">
+                Avaliações ({course?.reviews.length})
+              </h5>
+
+              {isAuthenticated ? <CreateReviewModal /> : <div></div>}
+            </div>
 
             {!course?.reviews.length && (
               <Card>
@@ -266,7 +274,7 @@ export function ViewCoursePage() {
             )}
 
             <ul className="space-y-6">
-              {course?.reviews.map((review) => (
+              {course?.reviews.slice(0, 3).map((review) => (
                 <li key={review.id} className="space-y-2">
                   <p className="text-sm">{review.review}</p>
 
@@ -286,18 +294,14 @@ export function ViewCoursePage() {
                     </div>
 
                     <span className="text-sm text-zinc-500">
-                      {format(
-                        parseISO(review.createdAt),
-                        "dd 'de' MMMM 'de' yyyy",
-                        {
-                          locale: pt,
-                        },
-                      )}
+                      {formatDate(review.createdAt)}
                     </span>
                   </div>
                 </li>
               ))}
             </ul>
+
+            {course && <ReviewsModal reviews={course.reviews} />}
           </div>
         </section>
       </main>

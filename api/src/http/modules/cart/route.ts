@@ -8,4 +8,9 @@ import { CartMiddleware } from './middleware';
 
 export const CartRoute = Router();
 
-CartRoute.get('/me', UserAuth, CartMiddleware, CartController.getAvailableItems);
+CartRoute.get(
+  '/me',
+  UserAuth,
+  CartMiddleware,
+  CartController.getAvailableItems,
+);

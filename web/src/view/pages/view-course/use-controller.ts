@@ -6,11 +6,13 @@ import { CoursesService } from '@/shared/services/courses'
 import { IAService } from '@/shared/services/ia'
 import { formatMoney } from '@/shared/utils/format-money'
 import { useCart } from '@/shared/contexts/cart-context'
+import { useAuthContext } from '@/shared/contexts/auth-context'
 
 export function useController() {
   const { id } = useParams()
   const { addItem, existInCart } = useCart()
   const navigate = useNavigate()
+  const { isAuthenticated } = useAuthContext()
 
   const [isLoadingCart, setIsLoadingCart] = useState(false)
 
@@ -19,7 +21,7 @@ export function useController() {
     queryFn: () => CoursesService.getById(Number(id)),
   })
 
-  const { data: resumeReviews, isLoading: isLoadingResume } = useQuery({
+  const { data: resumeReviews, isFetching: isLoadingResume } = useQuery({
     queryKey: [`resume-ia/${id}`],
     queryFn: () => IAService.generateReviewResume(Number(id)),
     enabled: (course && course.reviews.length > 0) === true,
@@ -67,5 +69,6 @@ export function useController() {
     existCourseInCart,
     handleAddNewItemInCart,
     handleBuyNow,
+    isAuthenticated,
   }
 }

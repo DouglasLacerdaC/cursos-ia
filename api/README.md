@@ -13,18 +13,20 @@ API desenvolvida para integração com o sistema de cursos! Com integrações ao
 
 Antes de começar você vai precisar ter instalado na sua máquina as ferramentas [Git](https://git-scm.com/) e [Docker](https://www.docker.com/).
 
-## 🖥️  Executar o [Prisma](https://www.prisma.io/docs)
+## 🖥️ Executar o [Prisma](https://www.prisma.io/docs)
 
 - Gerar o banco:
 
 ```
   npx prisma db push
 ```
+
 - Adicionar os dados no banco
 
 ```
   npx prisma db seed
 ```
+
 - Iniciar gerenciador de banco do Prisma
 
 ```
@@ -38,11 +40,13 @@ Antes de começar você vai precisar ter instalado na sua máquina as ferramenta
 ```
   stripe login
 ```
+
 2. Rode o comando para expor o [webhook](https://docs.stripe.com/webhooks)
 
 ```
   stripe listen --forward-to localhost:3000/purchases/webhook
 ```
+
 ## ⚡ Executando o projeto
 
 1. Clone o repositório

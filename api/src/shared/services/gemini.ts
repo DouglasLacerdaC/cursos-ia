@@ -7,8 +7,9 @@ export async function generateResumeGemini(feedbacks: string[]) {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `
-      "Forneça um resumo dissertativo para um usuário que não conhece programação sobre as opiniões expressas em relação aos feedbacks que irei listar relacionado a um curso que está a venda. O resumo deve apresentar os principais argumentos em relação ao curso e pontos de vista de forma
-      clara e objetiva, sem formatação em negrito ou ênfases. Evite incluir opiniões pessoais e concentre-se em apresentar uma visão equilibrada do assunto. Não faça um resumo para cada feedback, mas sim, um resumo ao todo.
+      "Gere um resumo natural e direto sobre as opiniões dos alunos em relação ao curso listado. O texto deve ser simples, fluído e sem formatações como títulos, negrito ou caracteres especiais.
+
+      Foque nos pontos positivos e eventuais críticas de forma equilibrada, sem repetir feedbacks individuais. A linguagem deve ser acessível, sem termos técnicos e com um tom informativo e imparcial.
 
       Feedbacks:
       ${feedbacks.join('\n\n')}

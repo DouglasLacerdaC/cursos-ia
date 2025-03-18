@@ -9,6 +9,11 @@ import { PurchaseMiddleware } from './middleware';
 export const PurchaseRoute = Router();
 
 PurchaseRoute.get('/', PurchaseController.index);
-PurchaseRoute.get('/generate-payment-url', UserAuth, PurchaseMiddleware, PurchaseController.generatePaymentUrl,);
+PurchaseRoute.get(
+  '/generate-payment-url',
+  UserAuth,
+  PurchaseMiddleware,
+  PurchaseController.generatePaymentUrl,
+);
 PurchaseRoute.use('/webhook', express.raw({ type: 'application/json' }));
 PurchaseRoute.post('/webhook', PurchaseController.webhook);

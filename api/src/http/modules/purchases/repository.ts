@@ -20,20 +20,20 @@ async function getAllByIds(ids: string[]) {
 }
 
 async function createAll(ids: number[], userId: number) {
-  const purchases = ids.map(id => ({
+  const purchases = ids.map((id) => ({
     courseId: id,
-    userId: userId
-  }))
+    userId: userId,
+  }));
 
   const data = await Prisma.enrolledUsers.createMany({
-    data: purchases
-  })
-  
-  return data
+    data: purchases,
+  });
+
+  return data;
 }
 
 export const PurchaseRepository = {
   getAll,
   getAllByIds,
-  createAll
+  createAll,
 };

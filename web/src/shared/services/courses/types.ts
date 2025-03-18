@@ -17,7 +17,7 @@ export interface CourseCartType {
   bannerUrl?: string
 }
 
-interface ReviewType {
+export interface ReviewType {
   id: number
   review: string
   stars: number

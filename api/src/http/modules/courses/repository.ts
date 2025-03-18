@@ -12,7 +12,9 @@ async function getAll(search?: string) {
 }
 
 async function checkUserEnrollment(courseId: number, userId: number) {
-  const data = await Prisma.$queryRaw<[]>`SELECT * FROM EnrolledUsers WHERE userId = ${userId} AND courseId = ${courseId}`;
+  const data = await Prisma.$queryRaw<
+    []
+  >`SELECT * FROM EnrolledUsers WHERE userId = ${userId} AND courseId = ${courseId}`;
 
   return data;
 }
@@ -42,7 +44,7 @@ async function getById(id: number) {
 
   const reviews = await Prisma.$queryRaw<
     ReviewModel[]
-  >`SELECT * FROM Reviews WHERE courseId = ${id}`;
+  >`SELECT * FROM Reviews WHERE courseId = ${id} ORDER BY createdAt DESC`;
 
   if (!courses.length)
     throw new ApiError(404, 'Não foi possível encontrar o curso');

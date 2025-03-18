@@ -9,5 +9,9 @@ import { AuthValidation } from './validation';
 
 export const AuthRoute = Router();
 
-AuthRoute.post('/login-google', Validate(AuthValidation.google), AuthController.loginGoogle);
+AuthRoute.post(
+  '/login-google',
+  Validate(AuthValidation.google),
+  AuthController.loginGoogle,
+);
 AuthRoute.get('/me', UserAuth, AuthController.me);

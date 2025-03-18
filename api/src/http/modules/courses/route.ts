@@ -12,4 +12,9 @@ export const CoursesRoute = Router();
 
 CoursesRoute.get('/me', UserAuth, CoursesController.getMyCourses);
 CoursesRoute.get('/', CoursesController.index);
-CoursesRoute.get('/:id', UserAuthValidate, Validate(CoursesValidation.byId), CoursesController.getById);
+CoursesRoute.get(
+  '/:id',
+  UserAuthValidate,
+  Validate(CoursesValidation.byId),
+  CoursesController.getById,
+);
