@@ -40,7 +40,7 @@ export function CoursesPage() {
             ))}
         </section>
 
-        {courses?.length == 0 && (
+        {(!courses || courses?.length == 0) && (
           <CourseEmptyCard
             title="Nenhum curso encontrado!"
             description="Melhore seu filtro de busca para retornar melhores resultados!"

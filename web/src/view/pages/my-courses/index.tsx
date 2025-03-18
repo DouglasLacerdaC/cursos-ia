@@ -40,7 +40,7 @@ export function MyCoursesPage() {
             ))}
         </section>
 
-        {courses && courses.length == 0 && (
+        {(!courses || courses.length == 0) && (
           <CourseEmptyCard
             title="Nenhum curso encontrado!"
             description="Verifique nossa loja e adquira um curso para realizar!"
