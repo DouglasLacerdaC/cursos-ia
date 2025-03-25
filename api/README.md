@@ -1,4 +1,4 @@
-# Feedback IA - API
+# Cursos IA - API
 
 API desenvolvida para integração com o sistema de cursos! Com integrações ao Stripe, Gemini e GoogleOAuth.
 

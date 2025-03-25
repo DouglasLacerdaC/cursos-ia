@@ -1,4 +1,4 @@
-# Feedback IA - Front-end
+# Cursos IA - Front-end
 Front-end voltado a vendas de cursos! Com integrações ao Stripe, Gemini e GoogleOAuth.
 
 ![Screenshot](./public/readme-cover.png)

@@ -1,4 +1,4 @@
-# Feedback IA
+# Cursos IA
 Projeto voltado a vendas de cursos! Com integrações ao Stripe, Gemini e GoogleOAuth.
 
 ![Screenshot](./web/public/readme-cover.png)
